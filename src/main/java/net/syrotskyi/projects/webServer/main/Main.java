@@ -1,14 +1,14 @@
-package main;
+package net.syrotskyi.projects.webServer.main;
 
-import model.AccountService;
+import net.syrotskyi.projects.webServer.model.AccountService;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.HandlerList;
 import org.eclipse.jetty.server.handler.ResourceHandler;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
-import servlets.SignInServlet;
-import servlets.SignUpServlet;
+import net.syrotskyi.projects.webServer.servlets.SignInServlet;
+import net.syrotskyi.projects.webServer.servlets.SignUpServlet;
 
 import java.util.logging.Logger;
 

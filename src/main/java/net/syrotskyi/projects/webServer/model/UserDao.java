@@ -1,6 +1,4 @@
-package model;
-
-import model.UserProfile;
+package net.syrotskyi.projects.webServer.model;
 
 public interface UserDao {
 

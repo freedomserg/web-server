@@ -1,7 +1,7 @@
-package model;
+package net.syrotskyi.projects.webServer.model.hibernate;
 
-import model.UserDao;
-import model.UserProfile;
+import net.syrotskyi.projects.webServer.model.UserDao;
+import net.syrotskyi.projects.webServer.model.UserProfile;
 import org.hibernate.Query;
 import org.hibernate.Session;
 

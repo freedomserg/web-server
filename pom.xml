@@ -41,7 +41,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>main.Main</mainClass>
+                            <mainClass>net.syrotskyi.projects.webServer.main.Main</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>

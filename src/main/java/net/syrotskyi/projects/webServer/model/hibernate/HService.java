@@ -1,5 +1,6 @@
-package model;
+package net.syrotskyi.projects.webServer.model.hibernate;
 
+import net.syrotskyi.projects.webServer.model.UserProfile;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;

@@ -1,4 +1,4 @@
-package model;
+package net.syrotskyi.projects.webServer.model;
 
 import javax.persistence.*;
 import java.io.Serializable;

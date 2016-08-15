@@ -1,4 +1,6 @@
-package model;
+package net.syrotskyi.projects.webServer.model;
+
+import net.syrotskyi.projects.webServer.model.hibernate.HService;
 
 public class AccountService {
 

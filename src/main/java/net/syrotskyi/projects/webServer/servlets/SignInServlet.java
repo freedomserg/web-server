@@ -1,7 +1,7 @@
-package servlets;
+package net.syrotskyi.projects.webServer.servlets;
 
-import model.AccountService;
-import model.UserProfile;
+import net.syrotskyi.projects.webServer.model.AccountService;
+import net.syrotskyi.projects.webServer.model.UserProfile;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
