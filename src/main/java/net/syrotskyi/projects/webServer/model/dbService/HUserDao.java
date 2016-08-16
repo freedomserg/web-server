@@ -1,4 +1,4 @@
-package net.syrotskyi.projects.webServer.model.hibernate;
+package net.syrotskyi.projects.webServer.model.dbService;
 
 import net.syrotskyi.projects.webServer.model.UserDao;
 import net.syrotskyi.projects.webServer.model.UserProfile;

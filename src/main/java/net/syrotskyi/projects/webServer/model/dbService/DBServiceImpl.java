@@ -1,4 +1,4 @@
-package net.syrotskyi.projects.webServer.model.hibernate;
+package net.syrotskyi.projects.webServer.model.dbService;
 
 import net.syrotskyi.projects.webServer.model.UserProfile;
 import org.hibernate.Session;
@@ -8,14 +8,14 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 
-public class HService {
+public class DBServiceImpl implements DBService {
 
     private static final String hibernate_show_sql = "false";
     private static final String hibernate_hbm2ddl_auto = "update";
 
     private final SessionFactory sessionFactory;
 
-    public HService() {
+    public DBServiceImpl() {
         Configuration configuration = getH2Configuration();
         sessionFactory = createSessionFactory(configuration);
     }
@@ -34,6 +34,7 @@ public class HService {
         return configuration;
     }
 
+    @Override
     public UserProfile getUserById(long id) {
         Session session = sessionFactory.openSession();
         HUserDao userDao = new HUserDao();
@@ -43,6 +44,7 @@ public class HService {
         return user;
     }
 
+    @Override
     public UserProfile getUserByLogin(String login) {
         Session session = sessionFactory.openSession();
         HUserDao userDao = new HUserDao();
@@ -52,6 +54,7 @@ public class HService {
         return user;
     }
 
+    @Override
     public void addUser(UserProfile newUser) {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();

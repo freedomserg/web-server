@@ -1,20 +1,20 @@
 package net.syrotskyi.projects.webServer.model;
 
-import net.syrotskyi.projects.webServer.model.hibernate.HService;
+import net.syrotskyi.projects.webServer.model.dbService.DBServiceImpl;
 
 public class AccountService {
 
-    private HService hService;
+    private DBServiceImpl DBServiceImpl;
 
     public AccountService() {
-        this.hService = new HService();
+        this.DBServiceImpl = new DBServiceImpl();
     }
 
     public UserProfile getUserByLogin(String login) {
-        return hService.getUserByLogin(login);
+        return DBServiceImpl.getUserByLogin(login);
     }
 
     public void addUser(UserProfile userProfile) {
-        hService.addUser(userProfile);
+        DBServiceImpl.addUser(userProfile);
     }
 }
