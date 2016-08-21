@@ -1,6 +1,7 @@
 package net.syrotskyi.projects.webServer.main;
 
 import net.syrotskyi.projects.webServer.model.AccountService;
+import net.syrotskyi.projects.webServer.model.AccountServiceImpl;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.HandlerList;
@@ -14,8 +15,10 @@ import java.util.logging.Logger;
 
 public class Main {
 
+    private static AccountService accountService;
+
     public static void main(String[] args) throws Exception {
-        AccountService accountService = new AccountService();
+        accountService = new AccountServiceImpl();
 
         ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
         context.addServlet(new ServletHolder(new SignUpServlet(accountService)), "/signup");

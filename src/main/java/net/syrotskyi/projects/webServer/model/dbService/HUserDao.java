@@ -9,7 +9,7 @@ public class HUserDao implements UserDao {
 
     private Session session;
 
-    public void setSession(Session session) {
+    public HUserDao(Session session) {
         this.session = session;
     }
 

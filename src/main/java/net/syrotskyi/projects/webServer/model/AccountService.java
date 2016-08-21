@@ -1,20 +1,8 @@
 package net.syrotskyi.projects.webServer.model;
 
-import net.syrotskyi.projects.webServer.model.dbService.DBServiceImpl;
+public interface AccountService {
 
-public class AccountService {
+    UserProfile getUserByLogin(String login);
 
-    private DBServiceImpl DBServiceImpl;
-
-    public AccountService() {
-        this.DBServiceImpl = new DBServiceImpl();
-    }
-
-    public UserProfile getUserByLogin(String login) {
-        return DBServiceImpl.getUserByLogin(login);
-    }
-
-    public void addUser(UserProfile userProfile) {
-        DBServiceImpl.addUser(userProfile);
-    }
+    void addUser(UserProfile userProfile);
 }

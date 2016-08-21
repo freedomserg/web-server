@@ -2,7 +2,7 @@ package net.syrotskyi.projects.webServer.model.dbService;
 
 import net.syrotskyi.projects.webServer.model.UserProfile;
 
-public interface DBService {
+public interface DbService {
 
     UserProfile getUserById(long id);
 
