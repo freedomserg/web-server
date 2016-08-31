@@ -1,41 +1,61 @@
 package net.syrotskyi.projects.webServer.main;
 
-import net.syrotskyi.projects.webServer.model.AccountService;
-import net.syrotskyi.projects.webServer.model.AccountServiceImpl;
+import net.syrotskyi.projects.webServer.accountServer.AccountServer;
+import net.syrotskyi.projects.webServer.accountServer.AccountServerController;
+import net.syrotskyi.projects.webServer.accountServer.AccountServerControllerMBean;
+import net.syrotskyi.projects.webServer.accountServer.AccountServerInterface;
+import net.syrotskyi.projects.webServer.servlets.AdminServlet;
+import org.apache.logging.log4j.LogManager;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.HandlerList;
-import org.eclipse.jetty.server.handler.ResourceHandler;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
-import net.syrotskyi.projects.webServer.servlets.SignInServlet;
-import net.syrotskyi.projects.webServer.servlets.SignUpServlet;
 
-import java.util.logging.Logger;
+import javax.management.MBeanServer;
+import javax.management.ObjectName;
+import java.lang.management.ManagementFactory;
 
 public class Main {
 
-    private static AccountService accountService;
+    //private static AccountService accountService;
+    private static final org.apache.logging.log4j.Logger logger = LogManager.getLogger(Main.class.getName());
+    private static AccountServerInterface accountServer;
 
     public static void main(String[] args) throws Exception {
-        accountService = new AccountServiceImpl();
+        //accountService = new AccountServiceImpl();
+        if (args.length != 1) {
+            logger.error("Use port as the first argument");
+            System.exit(1);
+        }
+        String portString = args[0];
+        int port = Integer.valueOf(portString);
+
+
+        accountServer = new AccountServer();
+
+        AccountServerControllerMBean serverStat = new AccountServerController(accountServer);
+        MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
+        ObjectName name = new ObjectName("Admin:type=AccountServerController.usersLimit");
+        mbs.registerMBean(serverStat, name);
 
         ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
-        context.addServlet(new ServletHolder(new SignUpServlet(accountService)), "/signup");
-        context.addServlet(new ServletHolder(new SignInServlet(accountService)), "/signin");
+        //context.addServlet(new ServletHolder(new SignUpServlet(accountService)), "/signup");
+        //context.addServlet(new ServletHolder(new SignInServlet(accountService)), "/signin");
+        context.addServlet(new ServletHolder(new AdminServlet(accountServer)), "/admin");
 
-        ResourceHandler resource_handler = new ResourceHandler();
-        resource_handler.setResourceBase("public_html");
+        //ResourceHandler resource_handler = new ResourceHandler();
+        //resource_handler.setResourceBase("public_html");
 
         HandlerList handlers = new HandlerList();
-        handlers.setHandlers(new Handler[]{resource_handler, context});
+        handlers.setHandlers(new Handler[]{context});
 
-        Server server = new Server(8080);
+        Server server = new Server(port);
         server.setHandler(handlers);
 
         server.start();
 
-        Logger.getGlobal().info("Server started");
+        logger.info("Server started");
 
         server.join();
     }
