@@ -8,7 +8,6 @@
 
     <properties>
         <!-- Versions -->
-        <junit.version>4.12</junit.version>
         <maven.compiler.plugin.version>3.1</maven.compiler.plugin.version>
         <maven.compiler.plugin.source.version>1.8</maven.compiler.plugin.source.version>
         <maven.compiler.plugin.target.version>1.8</maven.compiler.plugin.target.version>
@@ -19,6 +18,8 @@
         <logback.version>1.1.7</logback.version>
         <h2database.version>1.4.187</h2database.version>
         <hibernate.version>4.3.10.Final</hibernate.version>
+        <junit.version>4.12</junit.version>
+        <mockito.version>1.8.4</mockito.version>
     </properties>
 
     <build>
@@ -125,6 +126,12 @@
             <scope>test</scope>
         </dependency>
 
+        <!--Mockito-->
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <version>${mockito.version}</version>
+        </dependency>
     </dependencies>
 
 </project>
