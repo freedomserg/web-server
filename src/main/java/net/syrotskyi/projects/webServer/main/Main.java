@@ -1,10 +1,9 @@
 package net.syrotskyi.projects.webServer.main;
 
-import net.syrotskyi.projects.webServer.accountServer.AccountServer;
-import net.syrotskyi.projects.webServer.accountServer.AccountServerController;
-import net.syrotskyi.projects.webServer.accountServer.AccountServerControllerMBean;
-import net.syrotskyi.projects.webServer.accountServer.AccountServerInterface;
-import net.syrotskyi.projects.webServer.servlets.AdminServlet;
+import net.syrotskyi.projects.webServer.resourceServer.ResourceServer;
+import net.syrotskyi.projects.webServer.resourceServer.ResourceServerController;
+import net.syrotskyi.projects.webServer.resourceServer.ResourceServerControllerMBean;
+import net.syrotskyi.projects.webServer.servlets.ResourceServlet;
 import org.apache.logging.log4j.LogManager;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
@@ -20,7 +19,8 @@ public class Main {
 
     //private static AccountService accountService;
     private static final org.apache.logging.log4j.Logger logger = LogManager.getLogger(Main.class.getName());
-    private static AccountServerInterface accountServer;
+    //private static AccountServerInterface accountServer;
+    private static ResourceServer resourceServer;
 
     public static void main(String[] args) throws Exception {
         //accountService = new AccountServiceImpl();
@@ -32,17 +32,24 @@ public class Main {
         int port = Integer.valueOf(portString);
 
 
-        accountServer = new AccountServer();
+        //accountServer = new AccountServer();
+        resourceServer = new ResourceServer();
 
-        AccountServerControllerMBean serverStat = new AccountServerController(accountServer);
+        //AccountServerControllerMBean serverStat = new AccountServerController(accountServer);
+        ResourceServerControllerMBean serverStat = new ResourceServerController(resourceServer);
         MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
-        ObjectName name = new ObjectName("Admin:type=AccountServerController.usersLimit");
+        ObjectName name = new ObjectName("Admin:type=ResourceServerController");
         mbs.registerMBean(serverStat, name);
+        logger.info("MbeanInfo: " + mbs.getMBeanInfo(name).toString());
+        logger.info(mbs.isRegistered(name));
+        logger.info(mbs.getMBeanCount());
+
 
         ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
         //context.addServlet(new ServletHolder(new SignUpServlet(accountService)), "/signup");
         //context.addServlet(new ServletHolder(new SignInServlet(accountService)), "/signin");
-        context.addServlet(new ServletHolder(new AdminServlet(accountServer)), "/admin");
+        //context.addServlet(new ServletHolder(new AdminServlet(accountServer)), "/admin");
+        context.addServlet(new ServletHolder(new ResourceServlet(resourceServer)), "/resources");
 
         //ResourceHandler resource_handler = new ResourceHandler();
         //resource_handler.setResourceBase("public_html");
